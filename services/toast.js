@@ -1,7 +1,9 @@
-import Swal from 'sweetalert2';
 import { Platform, Alert } from 'react-native';
 
 const isWeb = Platform.OS === 'web';
+
+// Only import sweetalert2 on web to avoid native crashes
+const Swal = isWeb ? require('sweetalert2') : null;
 
 const Toast = isWeb ? Swal.mixin({
   toast: true,
@@ -16,19 +18,19 @@ const Toast = isWeb ? Swal.mixin({
 }) : null;
 
 export const showToast = (icon, title) => {
-  if (isWeb) {
+  if (isWeb && Toast) {
     Toast.fire({
       icon,
       title
     });
   } else {
     // Fallback for native mobile
-    alert(`${icon.toUpperCase()}: ${title}`);
+    Alert.alert(icon.toUpperCase(), title);
   }
 };
 
 export const showConfirm = async (title, text, confirmButtonText = 'Confirm') => {
-  if (isWeb) {
+  if (isWeb && Swal) {
     const result = await Swal.fire({
       title,
       text,
