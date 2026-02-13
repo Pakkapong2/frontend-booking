@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { getItem } from './storage';
 
-const API_URL = process.env.EXPO_PUBLIC_API_URL || 'http://localhost:9999/api';
+const API_URL = process.env.EXPO_PUBLIC_API_URL || 'http://172.20.10.1/booking';
 
 const api = axios.create({
   baseURL: API_URL,
